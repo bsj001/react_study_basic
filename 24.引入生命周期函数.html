@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/babel-standalone/7.24.7/babel.js"></script>
+<script src="https://unpkg.com/prop-types@15.6/prop-types.min.js"></script>
+
+<body>
+    <div id='app'></div>
+    <script type="text/babel">
+        /*
+            旧的生命周期：
+            1，初始化阶段：由ReactDOM.render()触发---初次渲染
+                1 constructor()
+                2 componentWillMount()
+                3 render()
+                4 componentDidMount()
+            2, 更新阶段：由组件内部this.setState()或父组件render()触发---- 更新
+                1 shouldComponentUpdate()
+                2 componentWillUpdate()
+                3 render()
+                4 componentDidMount()
+            3, 卸载组件：由ReactDOM.unmountComponentAtNode() 触发
+                1 componentWillUnmount()
+        */
+        class Life extends React.Component {
+            state = { opacity: 1 }
+
+            death = () => {
+                //卸载组件
+                ReactDOM.unmountComponentAtNode(document.getElementById('app'))
+            }
+
+            componentDidMount() {
+                this.timer = setInterval(() => {
+                    let opacity = this.state.opacity
+                    if (opacity < 0) { opacity = 1 }
+                    this.setState({ opacity: opacity - 0.1 })
+                }, 200)
+            }
+
+            componentWillUnmount() {
+                clearInterval(this.timer)
+            }
+
+            render() {
+                return <div>
+                    <h2 style={{ opacity: this.state.opacity }}>我要学习REACT</h2>
+                    <button onClick={this.death}>不学了</button>
+                </div>
+            }
+        }
+
+        ReactDOM.render(
+            <Life />,
+            document.getElementById("app")
+        )
+
+    </script>
+</body>
+
+</html>

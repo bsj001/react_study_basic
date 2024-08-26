@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<body>
+    <div id='app'></div>
+    <script type="text/babel">
+        /*
+        总结：
+            1，reactor引入了class，用class来封闭成组件
+            2，class中的render中的return中使用html,html中{}内可以使用js
+            3,除了render中的return之外，其他都是js
+            4,class中使用 => 来巧妙的避开了函数中的this指向(=>中的this指向方向的上层，即class实例对象)
+            5,class中有三部分：constructor 、 属性 、 方法(其中render是必须的,且必须有return,且必须是html)
+        */
+
+        class Weather extends React.Component {
+
+            state = { isHot: true, isWind: true }
+
+            render() {
+                return <div onClick={this.changeWeather}>今天天气是{this.state.isHot ? "炎热" : "凉爽"},风向是:{this.state.isWind ? "微风" : "大风"}</div>
+            }
+
+            changeWeather = () => {
+                let isHot = this.state.isHot;
+                this.setState({ isHot: !isHot })
+            }
+        }
+
+        ReactDOM.render(
+            <Weather />,
+            document.getElementById("app")
+        )
+
+    </script>
+</body>
+
+</html>

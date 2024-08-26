@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/babel-standalone/7.24.7/babel.js"></script>
+<script src="https://unpkg.com/prop-types@15.6/prop-types.min.js"></script>
+
+<style>
+    .list {
+        width: 200px;
+        height: 150px;
+        background-color: skyblue;
+        overflow: auto;
+    }
+
+    .news {
+        height: 30px;
+    }
+</style>
+
+<body>
+    <div id='app'></div>
+    <script type="text/babel">
+        /*
+            1,初始化阶段：由ReactDOM.render()触发---初次渲染
+                1 constructor()
+                2 getDerivedStateFromProps
+                3 render() 常用
+                4 componentDidMount()  常用
+            2, 更新 由组件内部this.setState()或父组件重新render触发
+                1 getDerivedStateFromProps
+                2 shouldComponentUpdate()
+                3 render()
+                4 getSnapshotBeforeUpdate
+                5 componentDidUpdate()
+            3 卸载
+                1 componentWillUnmount() 常用
+        */
+
+
+        class Hello extends React.Component {
+            state = { newsArr: [] }
+
+            componentDidMount() {
+                setInterval(() => {
+                    const { newsArr } = this.state
+                    const news = "新闻" + (newsArr.length + 1)
+                    this.setState({ newsArr: [news, ...newsArr] })
+                }, 1000)
+            }
+
+            getSnapshotBeforeUpdate() {
+                return this.refs.list.scrollHeight
+            }
+
+            componentDidUpdate(props, preState, height) {
+                this.refs.list.scrollTop += this.refs.list.scrollHeight - height
+            }
+
+
+            render() {
+                return (
+                    <div className="list" ref="list">
+                        {
+                            this.state.newsArr.map((n, index) => {
+                                return <div className="news" key={index}>{n}</div>
+                            })
+                        }
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <Hello />,
+            document.getElementById("app")
+        )
+
+    </script>
+</body>
+
+</html>

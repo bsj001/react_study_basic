@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<body>
+    <div id='app1'></div>
+    <div id='app2'></div>
+    <div id='app2'></div>
+    <script type="text/babel">
+
+
+        class Person extends React.Component {
+            render() {
+                const { name, age, sex } = this.props
+                return <div>
+                    <p>姓名：{name}</p>
+                    <p>年龄：{age + 1}</p>
+                    <p>性别：{sex}</p>
+                </div>
+            }
+
+
+        }
+
+        ReactDOM.render(
+            <Person name='tom' age={18} sex='男' />,
+            document.getElementById("app1")
+        )
+
+        ReactDOM.render(
+            <Person name='tom' age='18' sex='男' />,
+            document.getElementById("app2")
+        )
+
+        let person = { name: 'jerry', age: 18, sex: '男' }
+
+        ReactDOM.render(
+            <Person {...person} />,
+            document.getElementById("app3")
+        )
+
+    </script>
+</body>
+
+</html>

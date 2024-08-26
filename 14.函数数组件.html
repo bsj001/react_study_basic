@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.6/prop-types.min.js"></script>
+
+<body>
+    <div id='app1'></div>
+    <script type="text/babel">
+
+        //函数式组件，只能手动传入props，用不了state、refs
+        function Person(props) {
+            const { name, age, sex } = props
+            return <div>
+                <p>姓名：{name}</p>
+                <p>年龄：{age + 1}</p>
+                <p>性别：{sex}</p>
+            </div>
+
+        }
+
+        //对标签属性进行限制
+        Person.propTypes = {
+            name: PropTypes.string.isRequired,
+            sex: PropTypes.string,
+            age: PropTypes.number,
+            speak: PropTypes.func,
+        }
+
+        //对标签属性填充默认值
+        Person.defaultProps = {
+            sex: '无',
+            age: 18
+        }
+
+        ReactDOM.render(
+            <Person name='tom' />,
+            document.getElementById("app1")
+        )
+
+    </script>
+</body>
+
+</html>

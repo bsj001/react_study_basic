@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.6/prop-types.min.js"></script>
+
+<body>
+    <div id='app'></div>
+    <script type="text/babel">
+
+        class Person extends React.Component {
+            showName = () => {
+                const { inputName } = this.refs
+                alert(inputName.value)
+            }
+            showAge = () => {
+                const { inputAge } = this.refs
+                alert(inputAge.value)
+            }
+            render() {
+                return <div>
+                    请输入姓名：<input ref='inputName' />&nbsp;
+                    <button onClick={this.showName}>点击展示姓名</button>&nbsp;
+                    请输入年龄：<input ref='inputAge' onBlur={this.showAge} type='text' placeholder='失焦展示年龄' />&nbsp;
+                </div>
+            }
+        }
+
+        ReactDOM.render(
+            <Person />,
+            document.getElementById("app")
+        )
+
+    </script>
+</body>
+
+</html>

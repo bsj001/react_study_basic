@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+<body>
+    <div id="app"></div>
+    <!-- ES5方法创建 -->
+    <script>
+        let hello = React.createElement('h1', {}, "Hello World!!!");
+        ReactDOM.render(hello, document.getElementById("app"))
+    </script>
+</body>
+
+</html>

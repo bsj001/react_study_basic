@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<style>
+    .yellow {
+        color: yellow;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
+    }
+</style>
+
+<body>
+    <div id='app'></div>
+    <script type="text/babel">
+        class Hello extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    name: '小天才',
+                    age: 18
+                }
+                //第二种
+                // this.agePlus = this.agePlus.bind(this)
+            }
+            //第一种
+            // agePlus = () => {
+            //     this.setState({
+            //         name: '大天才',
+            //         age: 30
+            //     })
+            // }
+            //第二种和第三种的函数
+            agePlus() {
+                this.setState({
+                    name: '大天才',
+                    age: 30
+                })
+            }
+            render() {
+                return <div>
+                    <h1>这是一个有状态组件</h1>
+                    <p>姓名：{this.state.name}</p>
+                    <p>年龄：{this.state.age}</p>
+                    <p>擅长：全栈</p>
+                    <p>经验: 20年</p>
+                    {/*第一种 <button onClick={this.agePlus}>年龄++</button> */}
+                    {/*第二种 <button onClick={this.agePlus}>年龄++</button> */}
+                    <button onClick={() => this.agePlus()}>年龄++</button>
+                    <button onClick={this.agePlus.bind(this)}>年龄++</button>
+                </div>
+            }
+        }
+        ReactDOM.render(
+            <Hello />,
+            document.getElementById("app")
+        )
+    </script>
+</body>
+
+</html>

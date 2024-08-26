@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<!-- <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+<script src="https://cdn.bootcdn.net/ajax/libs/babel-standalone/7.24.7/babel.js"></script>
+<script src="https://unpkg.com/prop-types@15.6/prop-types.min.js"></script>
+
+<body>
+    <div id='app'></div>
+    <script type="text/babel">
+        /*
+            高阶函数：（满足其一）
+                1，参数是函数
+                2，return是函数
+            函数的柯里化：多次调用的return都是函数,只在最后一次统一处理的函数编码形式。
+        */
+
+        /* function sum(a) {
+            return (b) => {
+                return (c) => {
+                    return a + b + c
+                }
+            }
+        } */
+
+        console.log(sum(1)(2)(3));
+
+        class Person extends React.Component {
+            state = {
+                userName: '',
+                password: ''
+            }
+
+            saveData = (dataType) => {
+                return (event) => {
+                    this.setState({ [dataType]: event.target.value })
+                }
+            }
+
+
+            submit = (event) => {
+                event.preventDefault() //阻止提交
+                const { userName, password } = this.state
+                alert(`输入的用户名是：${userName},输入的密码是：${password}`)
+            }
+
+
+            render() {
+                return <form onSubmit={this.submit}>
+                    请输入用户名：<input onChange={this.saveData('userName')} type='text' />&nbsp;
+                    请输入密码：<input onChange={this.saveData('password')} type='text' />&nbsp;
+                    <button>登录</button>
+                </form>
+            }
+        }
+
+        ReactDOM.render(
+            <Person />,
+            document.getElementById("app")
+        )
+
+    </script>
+</body>
+
+</html>
